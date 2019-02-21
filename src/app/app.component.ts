@@ -10,6 +10,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 export class AppComponent  {
   name = 'Angular';
   submitted = false;
+  numbers = [];
   sounds = {
           "1": "/assets/msgs/1.mp3",
           "2": "/assets/msgs/2.mp3",
@@ -79,6 +80,7 @@ export class AppComponent  {
         let val = form.value[key];
         console.log("------val---", val);
         if(val) {
+            this.numbers.push(key.replace("_",""));
           let p = key.replace("_", "");
           const audio = new Audio();
           audio.src = this.sounds[p];
