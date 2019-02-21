@@ -1,0 +1,35 @@
+<hello name="{{ name }}"></hello>
+
+<p>
+  Для проверки нужно пометить несколько чекбоксов и нажать сабмит, сразу же нажать еще раз
+</p>
+<form  #hForm="ngForm" (ngSubmit)="submitForm(hForm)">
+  <div style="float: left">
+    <label>1</label><input type="checkbox" name="_1" ngModel /><br>
+    <label>2</label><input type="checkbox" name="_2" ngModel /><br>
+    <label>3</label><input type="checkbox" name="_3" ngModel /><br>
+    <label>4</label><input type="checkbox" name="_4" ngModel /><br>
+    <label>5</label><input type="checkbox" name="_5" ngModel /><br>
+  </div>
+  <div>
+    <label>6</label><input type="checkbox" name="_6" ngModel /><br>
+    <label>7</label><input type="checkbox" name="_7" ngModel /><br>
+    <label>8</label><input type="checkbox" name="_8" ngModel /><br>
+    <label>9</label><input type="checkbox" name="_9" ngModel /><br>
+    <label>10</label><input type="checkbox" name="_10" ngModel /><br>
+
+  </div>
+  <button>Submit</button>
+</form>
+
+  <h2>Queue:</h2>
+  <div class="row" *ngFor="let sound of queue">
+    <div class="col-xs-9">{{ sound.src }}</div>
+  </div>
+
+<div [hidden]="!submitted">
+  <h2>You submitted the following:</h2>
+  <div class="row" *ngFor="let number of numbers">
+    <div class="col-xs-9">{{ number }}</div>
+  </div>
+</div>
