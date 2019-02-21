@@ -23,7 +23,7 @@
 </form>
 
   <h2>Queue:</h2>
-  <div class="row" *ngFor="let sound of queue">
+  <div class="row" *ngFor="let sound of sounds_queue | async">
     <div class="col-xs-9">{{ sound.src }}</div>
   </div>
 

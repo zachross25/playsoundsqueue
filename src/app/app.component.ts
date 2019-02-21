@@ -1,5 +1,6 @@
 import { Component, NgZone  } from '@angular/core';
 import  { NgForm } from '@angular/forms';
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'my-app',
@@ -9,7 +10,6 @@ import  { NgForm } from '@angular/forms';
 export class AppComponent  {
   name = 'Angular';
   submitted = false;
-  numbers = [];
   sounds = {
           "1": "/assets/msgs/1.mp3",
           "2": "/assets/msgs/2.mp3",
@@ -23,15 +23,21 @@ export class AppComponent  {
           "10": "/assets/msgs/10.mp3",
         }
   queue: HTMLAudioElement[] = [];
+  private _observableList: BehaviorSubject<HTMLAudioElement[]> = new BehaviorSubject([])
+ get sounds_queue(): Observable<HTMLAudioElement[]> { return this._observableList.asObservable()  };
   is_playing = false;
+
 
   constructor(
         private zone: NgZone,
+
       )
   {}
+
+
   PlayAudio(recursive=false) {
     console.log("Queue length: " + this.queue.length);
-    const audio = this.queue.shift();
+    const audio = this.queue.pop();
     if(!recursive && this.is_playing)
     {
       return;
@@ -39,6 +45,8 @@ export class AppComponent  {
 
     if (audio !== undefined) {
         this.zone.runOutsideAngular(() => {
+
+          console.log("queue", this.queue.map(function(a) { return a.src }))
           audio.load();
           this.is_playing = true;
           setTimeout(function(){
@@ -66,19 +74,17 @@ export class AppComponent  {
 
   submitForm(form: NgForm) {
     this.submitted = true;
-    this.numbers = [];
 
     for (const key in form.value) {
         let val = form.value[key];
+        console.log("------val---", val);
         if(val) {
           let p = key.replace("_", "");
-          this.numbers.push(p);
-          let src = this.sounds[p];
-          console.log(key);
           const audio = new Audio();
-          audio.src = src;
+          audio.src = this.sounds[p];
+          console.log('--key/src ', key, audio.src);
           this.queue.push(audio);
-
+          this._observableList.next(this.queue);
           console.log(this.queue);
         }
     }
