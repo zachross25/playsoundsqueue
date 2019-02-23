@@ -7,3 +7,13 @@ p {
   margin: 0px;
   width: 50%;
 }
+
+mat-grid-tile {
+  background: lightcyan;
+}
+
+.checkbox_form {
+  position: absolute;
+  left: 25px;
+  top: 5px;
+}
