@@ -34,19 +34,21 @@ export class AppComponent  {
 
 
   PlayAudio(recursive=false): void {
-    let obj = this.queue.pop();
-    if(obj === undefined) { return }
-
-    let audio = obj["audio"];
-    let number = obj["number"];
     if(!recursive && this.is_playing)
     {
       return;
     }
 
+    let obj = this.queue.shift();
+    if(obj === undefined) { return }
+
+    let audio = obj["audio"];
+    let number = obj["number"];
+
+
     if (audio !== undefined) {
         this.zone.run(() => {
-          console.log("queue", this.queue.map(function(a) { return a.src }))
+          console.log("queue", this.queue.map(function(a) { return a.number }))
 
           audio.load();
           this.is_playing = true;
@@ -92,6 +94,7 @@ export class AppComponent  {
           obj["audio"] = audio;
           obj["number"] = number;
           this.queue.push(obj);
+          console.log("queue length", this.queue.length);
 
         }
     }
