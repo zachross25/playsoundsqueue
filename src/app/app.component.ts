@@ -34,10 +34,16 @@ export class AppComponent  {
 
 
   PlayAudio(recursive=false): void {
-    if(!recursive && this.is_playing)
-    {
-      return;
-    }
+      /* when this function calls it always check 'is_playing' variable and return if this variable is true,
+       * 'is_playing' in true means audio started playing already
+       * in case 'is_playing' are 'false' take first element from array 'this.queue'
+       */
+      if(this.is_playing) {
+          if(!recursive) {
+              // return if it not recursive call while is_playing === true
+              return
+          }
+      }
 
     let obj = this.queue.shift();
     if(obj === undefined) { return }
@@ -57,14 +63,16 @@ export class AppComponent  {
           let timeout = timer(1000);
           timeout.subscribe(() => audio.play())
 
-          // add number to "played" when audio playing ended
           audio.addEventListener('ended', () => {
-            this.played.push(number);
-            console.log("---played audio---", audio.src);
+              // add number to "played" when audio playing ended
+              this.played.push(number);
+              console.log("---played audio---", audio.src);
+
             if (this.queue.length > 0) {
-              console.log("---play ended");
+
               this.PlayAudio(recursive=true);
             } else {
+              console.log("---play ended");
               this.is_playing = false;
             }
           });
@@ -104,11 +112,13 @@ export class AppComponent  {
 
   }
 
+  // this function using in the template to clean working arrays
   clear() {
       this.played.length = 0;
       this.numbers.length = 0;
   }
 
+  // this function using in the template for adding "done" icon
   if_number_is_played(n: string) {
       for(let i = 0; i < this.played.length; i++) {
           if(this.played[i] === n) {
@@ -116,6 +126,6 @@ export class AppComponent  {
           }
       }
       return false
-
   }
+
 }
