@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Deploy Production to Git
           command: |
-            git push origin production
+            git push
 
 workflows:
   version: 2
@@ -47,4 +47,4 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only: production
