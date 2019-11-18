@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Deploy Production to Git
           command: |
-              git push git@github.com:rostyslavnikitin/playsoundsqueue.git
+              git push git@github.com:rostyslavnikitin/playsoundsqueue.git production
 
 workflows:
   version: 2
