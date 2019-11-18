@@ -34,8 +34,7 @@ jobs:
             - "09:b4:23:96:76:25:bd:e3:09:55:76:ba:96:98:51:fb"
       - run:
           name: Deploy Production to Git
-          command: |
-            git push
+          command: git push
 
 workflows:
   version: 2
