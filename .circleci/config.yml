@@ -33,10 +33,14 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "09:b4:23:96:76:25:bd:e3:09:55:76:ba:96:98:51:fb"
+      #- run:
+          #name: Deploy Production to Git
+          #command: |
+          #    git push origin HEAD:production
       - run:
-          name: Deploy Production to Git
+          name: Deploy Production to Heroku
           command: |
-              git push origin HEAD:production
+              git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 workflows:
   version: 2
