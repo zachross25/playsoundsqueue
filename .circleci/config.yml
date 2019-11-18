@@ -5,11 +5,12 @@ jobs:
       - image: circleci/node:12.13-browsers # the primary container, where your job's commands are run
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: install-dependencies
-          command: yarn install
+      - run: echo "1"
+#      - restore_cache:
+#          key: dependency-cache-{{ checksum "yarn.lock" }}
+#      - run:
+#          name: install-dependencies
+#          command: yarn install
 #      - save_cache:
 #          key: dependency-cache-{{ checksum "yarn.lock" }}
 #          paths:
@@ -35,7 +36,7 @@ jobs:
       - run:
           name: Deploy Production to Git
           command: |
-              git push origin production
+              git push origin HEAD:production
 
 workflows:
   version: 2
