@@ -5,20 +5,19 @@ jobs:
       - image: circleci/node:12.13-browsers # the primary container, where your job's commands are run
     steps:
       - checkout
-      - run: echo "1"
-#      - restore_cache:
-#          key: dependency-cache-{{ checksum "yarn.lock" }}
-#      - run:
-#          name: install-dependencies
-#          command: yarn install
-#      - save_cache:
-#          key: dependency-cache-{{ checksum "yarn.lock" }}
-#          paths:
-#            - ~/.cache/yarn
-#            - ./node_modules
-#      - run:
-#          name: angular-build
-#          command: yarn ng build --prod --aot --no-progress
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: install-dependencies
+          command: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - ./node_modules
+      - run:
+          name: angular-build
+          command: yarn ng build --prod --aot --no-progress
 #      - run:
 #          name: angular-test
 #          command: yarn run test
