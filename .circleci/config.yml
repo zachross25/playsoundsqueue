@@ -25,6 +25,8 @@ jobs:
 #          path: test-results.xml
 #          prefix: tests
   deploy:
+    branches:
+      only: master
     docker:
       - image: buildpack-deps:trusty
     steps:
@@ -35,7 +37,7 @@ jobs:
       - run:
           name: Deploy Production to Git
           command: |
-              git push git@github.com:rostyslavnikitin/playsoundsqueue.git production
+              git push git@github.com:rostyslavnikitin/playsoundsqueue.git
 
 workflows:
   version: 2
