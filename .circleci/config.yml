@@ -34,13 +34,17 @@ jobs:
             - "09:b4:23:96:76:25:bd:e3:09:55:76:ba:96:98:51:fb"
       - run:
           name: Deploy Production to Git
-          command: git push
+          command: |
+              git push git@github.com:rostyslavnikitin/playsoundsqueue.git production
 
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - build
