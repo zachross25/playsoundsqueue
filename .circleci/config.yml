@@ -25,8 +25,6 @@ jobs:
 #          path: test-results.xml
 #          prefix: tests
   deploy:
-    branches:
-      only: master
     docker:
       - image: buildpack-deps:trusty
     steps:
