@@ -20,7 +20,7 @@ jobs:
           command: yarn ng build --prod --aot --no-progress
       - run:
           name: angular-test
-          command: yarn test --watch=false --no-progress
+          command: npm run test
       - store_artifacts:
           path: test-results.xml
           prefix: tests
