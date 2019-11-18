@@ -24,3 +24,27 @@ jobs:
 #      - store_artifacts:
 #          path: test-results.xml
 #          prefix: tests
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "61:99:12:57:e2:18:05:44:7c:d2:8a:d2:6d:9d:78:c3"
+      - run:
+          name: Deploy Production to Git
+          command: |
+            git push https://github.com/rostyslavnikitin/playsoundsqueue.git production
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
