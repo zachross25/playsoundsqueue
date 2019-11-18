@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:12.3-browsers # the primary container, where your job's commands are run
+      - image: circleci/node:12.13-browsers # the primary container, where your job's commands are run
     steps:
       - checkout
       - restore_cache:
