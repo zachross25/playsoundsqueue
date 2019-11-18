@@ -1,0 +1,50 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.13-browsers # the primary container, where your job's commands are run
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: install-dependencies
+          command: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - ./node_modules
+      - run:
+          name: angular-build
+          command: yarn ng build --prod --aot --no-progress
+#      - run:
+#          name: angular-test
+#          command: yarn run test
+#      - store_artifacts:
+#          path: test-results.xml
+#          prefix: tests
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "09:b4:23:96:76:25:bd:e3:09:55:76:ba:96:98:51:fb"
+      - run:
+          name: Deploy Production to Git
+          command: |
+            git push https://github.com/rostyslavnikitin/playsoundsqueue.git production
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

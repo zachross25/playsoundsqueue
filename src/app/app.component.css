@@ -1,0 +1,19 @@
+p {
+  font-family: Lato;
+}
+
+.tile {
+  padding: 0px;
+  margin: 0px;
+  width: 50%;
+}
+
+mat-grid-tile {
+  background: darkseagreen;
+}
+
+.checkbox_form {
+  position: absolute;
+  left: 25px;
+  top: 5px;
+}

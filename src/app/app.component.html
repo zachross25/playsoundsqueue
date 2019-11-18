@@ -1,0 +1,45 @@
+<hello name="{{ name }}"></hello>
+
+<p>
+  Select few checkbox, push submit. Do it again while it playing
+</p>
+<mat-grid-list cols="4" rowHeight="350px">
+  <mat-grid-tile>
+    <div>
+      <form  #hForm="ngForm" (ngSubmit)="submitForm(hForm)" class="checkbox_form">
+        <mat-grid-list cols="2" style="width: 100px;">
+          <mat-grid-tile *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+            <mat-checkbox name="_{{i}}" ngModel>{{i}}</mat-checkbox>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <button>Submit</button>
+      </form>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="checkbox_form">
+      <b>You submitted the following:</b>
+      <ul *ngFor="let number of numbers">
+        <li>{{ number }} <mat-icon *ngIf="if_number_is_played(number)">done</mat-icon></li>
+      </ul>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="checkbox_form">
+      <b>Queue:</b>
+      <ul *ngFor="let sound of queue">
+        <li>{{ sound.number }}</li>
+      </ul>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="checkbox_form">
+      <b>Speak log:</b>
+      <ul>
+        <li *ngFor="let number of played">played number: {{number}}</li>
+      </ul>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<button (click)="clear()">Clear</button>
