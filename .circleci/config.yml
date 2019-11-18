@@ -31,7 +31,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "61:99:12:57:e2:18:05:44:7c:d2:8a:d2:6d:9d:78:c3"
+            - "09:b4:23:96:76:25:bd:e3:09:55:76:ba:96:98:51:fb"
       - run:
           name: Deploy Production to Git
           command: |
